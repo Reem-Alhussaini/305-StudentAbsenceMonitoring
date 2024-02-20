@@ -150,7 +150,11 @@ public class MainFrame extends JFrame {
         loginFrame.setSize(400, 300);
         loginFrame.setMaximumSize(new Dimension(200, 100)); // Adjusts the size of the frame to fit its contents
         loginFrame.setVisible(true);
+        
+
     }
+    
+    
     public static void main(String[] args) {
         MainFrame parentOrAdmin = new MainFrame();
         parentOrAdmin.ParentOrAdmin();

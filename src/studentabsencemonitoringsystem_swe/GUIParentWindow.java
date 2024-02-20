@@ -82,7 +82,7 @@ public class GUIParentWindow extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // // View Excuse Status Button
-        new viewExcuseStatus().setVisible(true);
+        new GUIviewExcuseStatus().setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 

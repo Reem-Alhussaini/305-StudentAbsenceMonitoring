@@ -141,8 +141,13 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 loginFrame.dispose(); // Close the login frame
                 // Show the parent or admin selection frame
+                if(title.equals("Parent Log In")){
                 GUIParentWindow parentWindow = new GUIParentWindow();
                 parentWindow.setVisible(true);
+                }
+                else{
+                    admin();
+                }
             }
         });
 
@@ -167,36 +172,9 @@ public class MainFrame extends JFrame {
         loginFrame.setSize(400, 300);
         loginFrame.setMaximumSize(new Dimension(200, 100)); // Adjusts the size of the frame to fit its contents
         loginFrame.setVisible(true);
-        menu();
 
     }
 
-    public void menu() {
-        JPanel panel = new JPanel(new GridLayout(4, 1, 10, 10));
-
-        JButton adminButton = new JButton("1. Register Absence or Evaluate Excuse (for Admin)");
-        JButton parentButton = new JButton("2. Submit Excuse or View Excuse Status (for Parent)");
-        JButton quitButton = new JButton("3. Quit");
-
-        adminButton.setFont(mainFont);
-        parentButton.setFont(mainFont);
-        quitButton.setFont(mainFont);
-
-        adminButton.addActionListener(e -> admin());
-        parentButton.addActionListener(e -> parent());
-        quitButton.addActionListener(e -> System.exit(0));
-
-        panel.add(adminButton);
-        panel.add(parentButton);
-        panel.add(quitButton);
-
-        add(panel);
-        setTitle("Student Absence Monitoring System");
-        setSize(400, 300);
-        setLocationRelativeTo(null); // Center the frame
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
-    }
 
     private void admin() {
         String[] adminOptions = {"Register Absence", "Evaluate Excuse"};
@@ -268,10 +246,6 @@ public class MainFrame extends JFrame {
             String studentIDToEvaluate = idField.getText();
             // Perform evaluation
         }
-    }
-
-    private void parent() {
-        // Implement functionality for the parent menu
     }
 
     public static void main(String[] args) {

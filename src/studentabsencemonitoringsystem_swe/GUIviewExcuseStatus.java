@@ -12,12 +12,12 @@ import studentabsencemonitoringsystem_swe.GUIParentWindow;
  *
  * @author reemasamir
  */
-public class viewExcuseStatus extends javax.swing.JFrame {
+public class GUIviewExcuseStatus extends javax.swing.JFrame {
 
     /**
      * Creates new form viewExcuseStatus
      */
-    public viewExcuseStatus() {
+    public GUIviewExcuseStatus() {
         initComponents();
     }
 
@@ -120,20 +120,20 @@ public class viewExcuseStatus extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(viewExcuseStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIviewExcuseStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(viewExcuseStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIviewExcuseStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(viewExcuseStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIviewExcuseStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(viewExcuseStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIviewExcuseStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new viewExcuseStatus().setVisible(true);
+                new GUIviewExcuseStatus().setVisible(true);
             }
         });
     }

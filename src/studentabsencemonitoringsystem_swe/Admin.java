@@ -14,9 +14,9 @@ public class Admin extends User {
         System.out.println(FileManagement.insertAbsence(absence, student));
     }
 
-    public static void evaluateExcuse(String absenceID, String date, Scanner scanner) {
+    public static void evaluateExcuse(String studentID, String date, Scanner scanner) {
         // Step 1: find absence object associated with the id given by admin
-        Absence absence = FileManagement.getAbsenceWExcuse(absenceID, date);
+        Absence absence = FileManagement.getAbsenceWExcuse(studentID, date);
 
         // Step 2: get excuse object from absence object
         if (absence != null) {

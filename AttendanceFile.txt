@@ -24,3 +24,4 @@
 1805023,amal,alghamdi,12/6/2023,sick,waiting for evaluation
 1505023,muruj,gaith,12/6/2023,very sick,waiting for evaluation
 1205023,ali,omar,12/6/2023,very sick,accepted
+3456,najat,alotaibi,12/7/2023,very sick,accepted

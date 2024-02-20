@@ -74,9 +74,9 @@ public class FileManagement {
         boolean lineModified = false;
         for (int i = 0; i < lines.size(); i++) {
             if (lines.get(i).equals(studentInfo)) {
-                lines.set(i, studentAndAbsenceInfo);
-                lineModified = true;
-                break;
+                    lines.set(i, studentAndAbsenceInfo);
+                    lineModified = true;
+                    break;
             }
         }
 

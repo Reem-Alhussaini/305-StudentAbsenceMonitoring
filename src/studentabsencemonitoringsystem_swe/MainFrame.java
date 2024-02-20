@@ -129,6 +129,22 @@ public class MainFrame extends JFrame {
         backButtonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         backButtonPanel.setBackground(Color.WHITE);
         backButtonPanel.add(backButton);
+        
+
+        //ok button
+        JButton ok = new JButton("OK");
+        ok.setForeground(Color.BLACK);
+        ok.setHorizontalAlignment(SwingConstants.CENTER);
+        ok.setPreferredSize(new Dimension(90, 25));
+
+        ok.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                loginFrame.dispose(); // Close the login frame
+                // Show the parent or admin selection frame
+                GUIParentWindow parentWindow = new GUIParentWindow();
+                parentWindow.setVisible(true);
+            }
+        });
 
         JPanel fieldPanel = new JPanel();
         fieldPanel.setBackground(Color.WHITE);
@@ -144,6 +160,7 @@ public class MainFrame extends JFrame {
         formPanel.add(backButtonPanel); // Add the back button panel
         formPanel.add(logIn);
         formPanel.add(fieldPanel);
+        formPanel.add(ok);
 
         loginFrame.getContentPane().add(formPanel, BorderLayout.CENTER);
 

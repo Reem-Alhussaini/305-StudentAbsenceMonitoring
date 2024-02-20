@@ -1,7 +1,7 @@
 package studentabsencemonitoringsystem_swe;
 
 
-import studentabsencemonitoringsystem_swe.ParentWindow;
+import studentabsencemonitoringsystem_swe.GUIParentWindow;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -99,7 +99,7 @@ public class viewExcuseStatus extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // // Back Button
-        new ParentWindow().setVisible(true);
+        new GUIParentWindow().setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -1,7 +1,7 @@
 package studentabsencemonitoringsystem_swe;
 
 
-import studentabsencemonitoringsystem_swe.ParentWindow;
+import studentabsencemonitoringsystem_swe.GUIParentWindow;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -12,12 +12,12 @@ import studentabsencemonitoringsystem_swe.ParentWindow;
  *
  * @author reemasamir
  */
-public class AddExcuseParent extends javax.swing.JFrame {
+public class GUIAddExcuseParent extends javax.swing.JFrame {
 
     /**
      * Creates new form AddExcuseParent
      */
-    public AddExcuseParent() {
+    public GUIAddExcuseParent() {
         initComponents();
     }
 
@@ -128,13 +128,13 @@ public class AddExcuseParent extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Submit Button
-        new successAddExcuse().setVisible(true);
+        new GUIsuccessAddExcuse().setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Back Button
-        new ParentWindow().setVisible(true);
+        new GUIParentWindow().setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -155,20 +155,20 @@ public class AddExcuseParent extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddExcuseParent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIAddExcuseParent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddExcuseParent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIAddExcuseParent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddExcuseParent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIAddExcuseParent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddExcuseParent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIAddExcuseParent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddExcuseParent().setVisible(true);
+                new GUIAddExcuseParent().setVisible(true);
             }
         });
     }

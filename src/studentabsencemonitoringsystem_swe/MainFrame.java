@@ -13,7 +13,8 @@ import javax.swing.*;
 
 public class MainFrame extends JFrame {
 
-    final private Font mainFont = new Font("Arial", Font.BOLD, 18);
+        final private Font mainFont = new Font("Helvetica Neue", 0, 18);
+	final private Font Bfont = new Font("Helvetica Neue", 0, 14);
 
     public void ParentOrAdmin() {
         //components --------------------------------------------------------------
@@ -23,7 +24,7 @@ public class MainFrame extends JFrame {
         user.setHorizontalAlignment(SwingConstants.CENTER);
 
         JButton BParent = new JButton("Parent");
-        BParent.setFont(mainFont);
+        BParent.setFont(Bfont);
         BParent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -32,7 +33,7 @@ public class MainFrame extends JFrame {
         });
 
         JButton BAdmin = new JButton("Admin");
-        BAdmin.setFont(mainFont);
+        BAdmin.setFont(Bfont);
         BAdmin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 openLoginFrame("Admin Log In");
@@ -87,31 +88,31 @@ public class MainFrame extends JFrame {
 
         // Components for login frame
         JLabel logIn = new JLabel("Log in");
-        logIn.setFont(mainFont);
+        logIn.setFont(Bfont);
         logIn.setForeground(Color.BLACK);
         logIn.setHorizontalAlignment(SwingConstants.CENTER);
 
         JLabel idL = new JLabel("ID");
-        idL.setFont(mainFont);
+        idL.setFont(Bfont);
         idL.setForeground(Color.BLACK);
         idL.setHorizontalAlignment(SwingConstants.CENTER);
 
         JTextField idF = new JTextField();
-        idF.setFont(mainFont);
+        idF.setFont(Bfont);
         idF.setPreferredSize(new Dimension(200, 50)); // Set preferred size
 
         JLabel passwordL = new JLabel("Password");
-        passwordL.setFont(mainFont);
+        passwordL.setFont(Bfont);
         passwordL.setForeground(Color.BLACK);
         passwordL.setHorizontalAlignment(SwingConstants.CENTER);
 
         JTextField passwordF = new JTextField();
-        passwordF.setFont(mainFont);
+        passwordF.setFont(Bfont);
         passwordF.setPreferredSize(new Dimension(200, 50)); // Set preferred size
 
         // Back button
         JButton backButton = new JButton("Back");
-        backButton.setFont(mainFont);
+        backButton.setFont(Bfont);
         backButton.setForeground(Color.BLACK);
         backButton.setHorizontalAlignment(SwingConstants.LEFT);
         backButton.setPreferredSize(new Dimension(90, 25)); // Adjust button size

@@ -36,7 +36,8 @@ public class AbsenceTimer {
     private void handleTimeout() {
         
         if (absence.getExcuse() == null || !absence.getExcuse().getStatus().equalsIgnoreCase("waiting for evaluation")) {
-            FileManagement.insertUnexcused(absence, "unexcused");
+            int id = Integer.parseInt(absence.getStudent().getId());
+            StudentDBManagement.insertStatus(id, absence.getDate(), "unexcused");
         }
     }
 }

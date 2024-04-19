@@ -16,9 +16,7 @@ public class StudentAbsenceMonitoringSystem_SWE {
             choice = scanner.nextInt();
             handleChoice(scanner, choice);
         } while (choice != 3);
-
     }
-
     //-----------------------------------------------------------------------------
     static void displayMenu() {
         System.out.println("Enter a number to select:");
@@ -26,22 +24,19 @@ public class StudentAbsenceMonitoringSystem_SWE {
         System.out.println("2. Submit Excuse or View Excuse Status (for Parent)");
         System.out.println("3. Quit");
     }
-
     //-----------------------------------------------------------------------------
     static void handleChoice(Scanner scanner, int choice) {
 
-        if (choice == 1) {
+        if (choice == 1)
             adminFunctions(scanner);
-        } else if (choice == 2) {
+        else if (choice == 2)
             parentFunctions(scanner);
-        } else if (choice == 3) {
+        else if (choice == 3)
             System.out.println("Quitting the program");
-        } else {
+        else
             System.out.println("Invalid choice");
-        }
 
     }
-
     //-----------------------------------------------------------------------------
     static void adminFunctions(Scanner scanner) {
         System.out.println("You're choosing Register Absence or Evaluate Excuse (for Admin)");
@@ -49,26 +44,36 @@ public class StudentAbsenceMonitoringSystem_SWE {
         System.out.println("1. Register Absence");
         System.out.println("2. Evaluate Excuse");
         int adminChoice = scanner.nextInt();
-
-        //-------------------------------------------
+        //--------------------------------------------------------------------------------------------------------------
         if (adminChoice == 1) {
             //register absence
             try {
-                callRegisterAbsence();
-            } catch (IOException e) {
-                System.out.println("Error: couldent register absence");
-            }
-            //-------------------------------------------   
-        } else if (adminChoice == 2) {
-            //evaluate excuse
-            callEvaluateExcuse(scanner);
-            //-------------------------------------------
-        } else {
-            System.out.println("Invalid choice");
-        }
-        //-------------------------------------------
-    }
+                //prompt admin for absence info
+                Absence absence = Absence.getAbsenceInfo(scanner);
 
+                //get Student object
+                Student student = absence.getStudent();
+
+                //register absence in file
+                Admin.registerAbsence(absence, student);
+
+            } catch (IOException e) { System.out.println("Error: couldn't register absence\n" + e);}
+        //--------------------------------------------------------------------------------------------------------------
+        } else if (adminChoice == 2)  { //evaluate excuse
+
+            //get Absences date
+            String date = Absence.getAbsencesDate(scanner);
+
+            //display all excuses with the entered date
+            StudentDBManagement.displayExcuses(date);
+
+            //let admin choose which excuse to evaluate
+            String id = Admin.getStudentID(scanner);
+
+            Admin.evaluateExcuse(id, date, scanner);
+        //--------------------------------------------------------------------------------------------------------------
+        } else System.out.println("Invalid choice");
+    }
     //-----------------------------------------------------------------------------
     static void parentFunctions(Scanner scanner) {
         System.out.println("You're choosing Add Excuse or View Excuse Status (for Parent)");
@@ -77,85 +82,34 @@ public class StudentAbsenceMonitoringSystem_SWE {
         System.out.println("2. View Excuse Status");
         int parentChoice = scanner.nextInt();
 
-        if (parentChoice == 1) {
+        //--------------------------------------------------------------------------------------------------------------
+        if (parentChoice == 1) { //submit excuse
+
+            Scanner input = new Scanner(System.in);
+            //get Student ID
+            String id = Parent.getStudentID(input, parentChoice);
+
+            //get absence date
+            String date = Parent.getDate(scanner);
+
+            //get excuse reason
+            String reason = Parent.getReason(input);
+
             //submit excuse
-            callSubmitExcuse(scanner);
-            //-------------------------------------------    
-        } else if (parentChoice == 2) {
-            //view excuse status
-
-            callViewExcuseStatus(scanner);
-            //-------------------------------------------
-        } else {
-            System.out.println("Invalid choice");
-        }
-    }
-
-    //-----------------------------------------------------------------------------
-    static void callRegisterAbsence() throws IOException {  
-
-        //prompt admin for absence info
-        Absence absence = Absence.getAbsenceInfo(scanner);
-
-        //get Student object
-        Student student = absence.getStudent();
-
-        //register absence in file
-        Admin.registerAbsence(absence, student);
-    }
-
-    //-----------------------------------------------------------------------------
-    static void callEvaluateExcuse(Scanner scanner) {
-
-        //get Absences date
-        String date = Absence.getAbsencesDate(scanner);
-
-        //dispaly all excuses with the entered date
-        FileManagement.displayExcuses(date);
-
-        //let admin choose which excuse to evaluate
-        System.out.println("Enter the id of the student whos excuse you want to evaluate: ");
-        String id = scanner.next();
-
-        Admin.evaluateExcuse(id, date, scanner);
-    }
-
-    //-----------------------------------------------------------------------------
-    static void callSubmitExcuse(Scanner scanner) {
-        Scanner input = new Scanner(System.in);
-        //get Student ID
-        System.out.println("Enter the ID of the student you want to submit an excuse for: ");
-        String id = scanner.next();
-
-        //get absence date
-        System.out.println("Enter the date of absence in this format \"dd/MM/yyyy\": ");
-        String date = scanner.next();
-
-        //get excuse reason
-        System.out.println("Enter absence reason: ");
-        String reason = input.nextLine();
-
-        //submit excuse
-        try {
             Parent.submitExcuse(id, date, reason);
-        } catch (IOException e) {
-            System.out.println("Error: Failed to submit excuse!");
-        }
+
+        //--------------------------------------------------------------------------------------------------------------
+        } else if (parentChoice == 2) { //view excuse status
+            //get Student ID
+            String id = Parent.getStudentID(scanner, parentChoice);
+
+            //get absence date
+            String date = Parent.getDate(scanner);
+
+            //view excuse status
+            Parent.viewExcuseStatus(id, date);
+        //--------------------------------------------------------------------------------------------------------------
+        } else System.out.println("Invalid choice");
+
     }
-
-    //-----------------------------------------------------------------------------
-    static void callViewExcuseStatus(Scanner scanner) {
-
-        //get Student ID
-        System.out.println("Enter the ID of the student you want to submit an excuse for: ");
-        String id = scanner.next();
-
-        //get absence date
-        System.out.println("Enter the date of absence in this format \"dd/MM/yyyy\": ");
-        String date = scanner.next();
-
-        //view excuse status
-        Parent.viewExcuseStatus(id, date);
-    }
-
-}
+} //end of main class

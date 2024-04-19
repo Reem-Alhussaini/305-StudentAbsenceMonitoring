@@ -5,49 +5,61 @@ import java.util.Scanner;
 
 public class Admin extends User {
 
+    //constructor-----------------------------------------------
     public Admin(String F_name, String L_name, String id) {
         super(F_name, L_name, id);
     }
+    //----------------------------------------------------------
 
     public static void registerAbsence(Absence absence, Student student) throws IOException {
-        System.out.println(FileManagement.insertStudent(student));
-        System.out.println(FileManagement.insertAbsence(absence, student));
+        StudentDBManagement.insertStudent(student);
+        StudentDBManagement.insertDate(absence, student);
     }
-
+    //----------------------------------------------------------------------------------------------------
     public static void evaluateExcuse(String studentID, String date, Scanner scanner) {
         // Step 1: find absence object associated with the id given by admin
-        Absence absence = FileManagement.getAbsenceWExcuse(studentID, date);
+        Excuse excuse = StudentDBManagement.getExcuse(studentID, date);
 
-        // Step 2: get excuse object from absence object
-        if (absence != null) {
-            Excuse excuse = absence.getExcuse();
-            if(excuse != null){
-                
-                // Step 3: Display reason for absence and current status of the excuse
-                System.out.println("\nReason for absence: " + excuse.getReason());
-                System.out.println("Current status: " + excuse.getStatus());
+        if(excuse != null){
 
-                // update the excuse status "only if" the excuse was not evaluated yet
-                if (excuse.getStatus().equals("waiting for evaluation")) {
+            // Step 2: Display reason for absence and current status of the excuse
+            String evaluation = displayInfo(excuse);
 
-                    // Step 4: Prompt admin to enter the evaluation of the excuse
-                    System.out.print("Evaluate excuse (accepted/rejected): ");
-                    String newStatus = scanner.next();
-
-                    // Step 5: Update excuse status
-                    FileManagement.insertExcuseStatus(absence, excuse, newStatus);
-                } 
-                else {
-                    System.out.println("The excuse for the student with the ID " + absence.getStudent().getId() + " was already evaluated");
-                }
+            // Step 3: Prompt admin to enter the evaluation of the excuse
+            // Step 4: Update excuse status
+            if(evaluation.equals("waiting for evaluation")) {
+                evaluation(scanner, studentID, date, excuse);
             }
-            else{
-                System.out.println("No excuse was submitted for this absence");
+            else {
+                System.out.println("The excuse for the student with the ID " + studentID + " was already evaluated");
             }
-         }//if
-        
+        }
         else {
             System.out.println("absence not found ");
         }
+    }
+    //----------------------------------------------------------------------------------------------------
+    private static String displayInfo(Excuse excuse){
+        String cause_of_absence = excuse.getReason();
+        String evaluation = excuse.getStatus();
+
+        System.out.println("\nReason for absence: " + cause_of_absence);
+        System.out.println("Current status: " + evaluation);
+        return evaluation;
+    }
+    //----------------------------------------------------------------------------------------------------
+    private static void evaluation(Scanner scanner, String studentID, String date, Excuse excuse){
+        System.out.print("Evaluate excuse (accepted/rejected): ");
+        String newStatus = scanner.next();
+        int id = Integer.parseInt(studentID);
+        StudentDBManagement.insertStatus(id, date, newStatus);
+        excuse.setStatus(newStatus);
+    }
+    //----------------------------------------------------------------------------------------------------
+
+
+    public static String getStudentID(Scanner scanner){
+        System.out.println("Enter the id of the student who's excuse you want to evaluate: ");
+        return scanner.next();
     }
 }

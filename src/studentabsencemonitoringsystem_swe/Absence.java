@@ -62,11 +62,10 @@ public class Absence {
 
         Student student = new Student(fname, lname, id);
 
-        System.out.print("Enter absence Date in this format \"dd/MM/yyyy\": ");
+        System.out.print("Enter absence Date in this format \"yyyy-mm-dd\": ");
         String date = scanner.next();
 
-        Absence absence = new Absence(student, date, null);
-        return absence;
+        return new Absence(student, date, null);
     }
 //-----------------------------------------------------------------------------
 

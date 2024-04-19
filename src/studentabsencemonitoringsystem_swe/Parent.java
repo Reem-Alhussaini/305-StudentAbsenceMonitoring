@@ -1,43 +1,54 @@
 package studentabsencemonitoringsystem_swe;
 
-import java.io.IOException;
+import java.util.Scanner;
 
 public class Parent extends User {
 
+    //constructor-----------------------------------------------
     public Parent(String F_name, String L_name, String id) {
         super(F_name, L_name, id);
     }
+    //----------------------------------------------------------
+    public static void submitExcuse(String studentID, String date, String reason) { //COMPLETED
 
-    public static void submitExcuse(String studentID, String date, String reason) throws IOException { //COMPLETED
-
-        //find the absence assoiciated with the student id and date
-        Absence absence = FileManagement.getAbsenceForParent(studentID, date);
-        Excuse excuse = new Excuse(reason, "waiting for evaluation");
-        // Check if absence was found
-        try {
-            String message = FileManagement.insertExcuse(excuse, absence);
-            System.out.println(message);
-        } catch (NullPointerException e) {
-            System.out.println("No absence found for the provided details.");
+        Absence absence = StudentDBManagement.getAbsenceForParent(studentID, date);
+        try{
+            String status = StudentDBManagement.insertExcuse(absence, reason);
+            Excuse excuse = new Excuse(reason, status);
+            absence.setExcuse(excuse);
+        }catch(NullPointerException e){
+            e.getMessage();
             e.printStackTrace();
         }
     }
-
     //---------------------------------------------------------------------------------------------------
     public static void viewExcuseStatus(String studentID, String date) {
+        Excuse excuse = StudentDBManagement.getExcuse(studentID, date);
 
-        //find the absence assoiciated with the student id and date
-        Absence absence = FileManagement.getAbsenceWExcuse(studentID, date);
-
-        // Check if absence was found
-        if (absence != null) {
-
-            //get excuse status
-            String status = absence.getExcuse().getStatus();
-
-            System.out.println("The excuse status is: " + status);
-            
-        }
+        if (excuse != null)
+            System.out.println("The excuse status is: " + excuse.getStatus());
+        else
+            System.out.println("absence was not found");
     }
     //---------------------------------------------------------------------------------------------------
+    public static String getStudentID(Scanner scanner, int parentChoice) {
+        if(parentChoice == 1) {
+            System.out.println("Enter the ID of the student you want to submit an excuse for: ");
+            return scanner.next();
+        }else if (parentChoice == 2){
+            System.out.println("Enter the ID of the student you want to view the excuse for: ");
+            return scanner.next();
+        }
+        return null;
+    }
+    //---------------------------------------------------------------------------------------------------
+    public static String getDate(Scanner scanner){
+        System.out.println("Enter the date of absence in this format \"yyyy-mm-dd\": ");
+        return scanner.next();
+    }
+    //---------------------------------------------------------------------------------------------------
+    public static String getReason(Scanner scanner){
+        System.out.println("Enter absence reason: ");
+        return scanner.next();
+    }
 }

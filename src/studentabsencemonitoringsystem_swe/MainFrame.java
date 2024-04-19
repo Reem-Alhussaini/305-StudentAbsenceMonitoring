@@ -13,7 +13,7 @@ import javax.swing.*;
 
 public class MainFrame extends JFrame {
 
-        final private Font mainFont = new Font("Helvetica Neue", 0, 18);
+    final private Font mainFont = new Font("Helvetica Neue", 0, 18);
 	final private Font Bfont = new Font("Helvetica Neue", 0, 14);
 
     public void ParentOrAdmin() {

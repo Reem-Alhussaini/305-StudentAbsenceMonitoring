@@ -3,18 +3,17 @@ package studentabsencemonitoringsystem_swe;
 import java.util.Scanner;
 import java.io.IOException;
 
-public class StudentAbsenceMonitoringSystem_SWE {
-
-    static Scanner scanner = new Scanner(System.in);
+public class StudentAbsenceMonitoringSystem {
 
     public static void main(String[] args) {
         System.out.println("****** Student Absence Monitoring System ******");
         int choice;
+        Scanner scanner = new Scanner(System.in);
 
         do {
             displayMenu();
             choice = scanner.nextInt();
-            handleChoice(scanner, choice);
+            handleChoice(choice);
         } while (choice != 3);
     }
     //-----------------------------------------------------------------------------
@@ -25,12 +24,13 @@ public class StudentAbsenceMonitoringSystem_SWE {
         System.out.println("3. Quit");
     }
     //-----------------------------------------------------------------------------
-    static void handleChoice(Scanner scanner, int choice) {
+    static void handleChoice(int choice) {
+        Scanner scanner = new Scanner(System.in);
 
         if (choice == 1)
-            adminFunctions(scanner);
+            adminFunctions();
         else if (choice == 2)
-            parentFunctions(scanner);
+            parentFunctions();
         else if (choice == 3)
             System.out.println("Quitting the program");
         else
@@ -38,7 +38,8 @@ public class StudentAbsenceMonitoringSystem_SWE {
 
     }
     //-----------------------------------------------------------------------------
-    static void adminFunctions(Scanner scanner) {
+    static void adminFunctions() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("You're choosing Register Absence or Evaluate Excuse (for Admin)");
         System.out.println("Enter a number to select:");
         System.out.println("1. Register Absence");
@@ -75,7 +76,8 @@ public class StudentAbsenceMonitoringSystem_SWE {
         } else System.out.println("Invalid choice");
     }
     //-----------------------------------------------------------------------------
-    public static void parentFunctions(Scanner scanner) {
+    public static void parentFunctions() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("You're choosing Add Excuse or View Excuse Status (for Parent)");
         System.out.println("Enter a number to select:");
         System.out.println("1. Submit Excuse");
@@ -85,15 +87,14 @@ public class StudentAbsenceMonitoringSystem_SWE {
         //--------------------------------------------------------------------------------------------------------------
         if (parentChoice == 1) { //submit excuse
 
-            Scanner input = new Scanner(System.in);
             //get Student ID
-            String id = Parent.getStudentID(input, parentChoice);
+            String id = Parent.getStudentID(scanner, parentChoice);
 
             //get absence date
             String date = Parent.getDate(scanner);
 
             //get excuse reason
-            String reason = Parent.getReason(input);
+            String reason = Parent.getReason(scanner);
 
             //submit excuse
             Parent.submitExcuse(id, date, reason);

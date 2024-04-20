@@ -4,41 +4,38 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import java.sql.*;
-
+//this class must be run first and never again (one time use)
 public class Database {
+    //add the jar file
+    private static final String DB_URL = "jdbc:mysql://localhost:3306";
+    private static final String USERNAME = "root";
+    //change the password to your password
+    private static final String PASSWORD = "Ar@121963";
+    private static final String DATABASE_NAME = "Students";
 
-    public static void createDB(){
-        try{
-            Connection con = null;
-            String ConnectionURL = "jdbc:mysql://localhost:3306"; //didn't add a DB name since im creating one
+    public static void main(String[] args) {
+        //remove comments of the calls to create the database and table
+        //createDB();
+        //createTable();
+    }
+    //----------------------------------------
+    public static void createDB() {
+        try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+             Statement st = con.createStatement()) {
 
-            con = DriverManager.getConnection(ConnectionURL,"root","Ar@121963") ;
-
-            Statement st = con.createStatement();
-
-            st.executeUpdate("CREATE DATABASE Students");
-
+            st.executeUpdate("CREATE DATABASE " + DATABASE_NAME);
             System.out.println("Database created");
 
-            con.close();
-        }
-        catch (SQLException s){
+        } catch (SQLException e) {
             System.out.println("SQL statement is not executed!");
+            System.out.println("Check if you changed the password and added the jar file");
+            e.printStackTrace();
         }
-
     }
-    public static void createTable(){
-        Connection connection;
-        try {
-            //path
-            String ConnectionURL = "jdbc:mysql://localhost:3306/students";
 
-            //(1) connect to DB
-            connection = DriverManager.getConnection(ConnectionURL, "root", "Ar@121963");
-
-            // (2) create table
-            Statement st = connection.createStatement();
+    public static void createTable() {
+        try (Connection con = DriverManager.getConnection(DB_URL + "/" + DATABASE_NAME, USERNAME, PASSWORD);
+             Statement st = con.createStatement()) {
 
             String table = "CREATE TABLE students (" +
                     "id INT PRIMARY KEY, " +
@@ -48,18 +45,13 @@ public class Database {
                     "cause_of_absence VARCHAR(200)," +
                     "evaluation VARCHAR(50))";
             st.executeUpdate(table);
+            System.out.println("Table created");
 
-            System.out.println("table created");
-
-
-        }catch(SQLException e){
-            System.out.println("couldn't create table");
+        } catch (SQLException e) {
+            System.out.println("Couldn't create table");
+            e.printStackTrace();
         }
     }
-    public static void main (String[] args){
 
-        //createDB();
-        //createTable();
 
-    }
 }

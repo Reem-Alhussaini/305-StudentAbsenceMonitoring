@@ -20,10 +20,8 @@ public class Parent extends User {
                 absence.setExcuse(excuse);
             }else{
                 System.out.println("You may have entered a wrong date or ID, try again");
-                Scanner scanner = new Scanner(System.in);
-                StudentAbsenceMonitoringSystem_SWE.parentFunctions(scanner);
+                StudentAbsenceMonitoringSystem.parentFunctions();
             }
-
 
     }
     //---------------------------------------------------------------------------------------------------

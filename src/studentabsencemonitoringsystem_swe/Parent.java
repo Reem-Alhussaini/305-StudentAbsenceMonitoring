@@ -12,14 +12,19 @@ public class Parent extends User {
     public static void submitExcuse(String studentID, String date, String reason) { //COMPLETED
 
         Absence absence = StudentDBManagement.getAbsenceForParent(studentID, date);
-        try{
-            String status = StudentDBManagement.insertExcuse(absence, reason);
-            Excuse excuse = new Excuse(reason, status);
-            absence.setExcuse(excuse);
-        }catch(NullPointerException e){
-            e.getMessage();
-            e.printStackTrace();
-        }
+
+            String status = null;
+            if (absence != null) {
+                status = StudentDBManagement.insertExcuse(absence, reason);
+                Excuse excuse = new Excuse(reason, status);
+                absence.setExcuse(excuse);
+            }else{
+                System.out.println("You may have entered a wrong date or ID, try again");
+                Scanner scanner = new Scanner(System.in);
+                StudentAbsenceMonitoringSystem_SWE.parentFunctions(scanner);
+            }
+
+
     }
     //---------------------------------------------------------------------------------------------------
     public static void viewExcuseStatus(String studentID, String date) {

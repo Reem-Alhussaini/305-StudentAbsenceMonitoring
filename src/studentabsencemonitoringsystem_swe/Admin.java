@@ -16,7 +16,7 @@ public class Admin extends User {
         StudentDBManagement.insertDate(absence, student);
     }
     //----------------------------------------------------------------------------------------------------
-    public static void evaluateExcuse(String studentID, String date, Scanner scanner) {
+    public static void evaluateExcuse(String studentID, String date, Scanner scanner) { //needs modification
         // Step 1: find absence object associated with the id given by admin
         Excuse excuse = StudentDBManagement.getExcuse(studentID, date);
 
@@ -39,7 +39,7 @@ public class Admin extends User {
         }
     }
     //----------------------------------------------------------------------------------------------------
-    private static String displayInfo(Excuse excuse){
+    private static String displayInfo(Excuse excuse){//needs modification
         String cause_of_absence = excuse.getReason();
         String evaluation = excuse.getStatus();
 
@@ -56,10 +56,13 @@ public class Admin extends User {
         excuse.setStatus(newStatus);
     }
     //----------------------------------------------------------------------------------------------------
-
-
     public static String getStudentID(Scanner scanner){
         System.out.println("Enter the id of the student who's excuse you want to evaluate: ");
+        return scanner.next();
+    }
+    //----------------------------------------------------------------------------------------------------
+    public static String getDate(Scanner scanner) {
+        System.out.println("Enter the date of the absences you want to evaluate in this format \"yyyy-mm-dd\": ");
         return scanner.next();
     }
 }

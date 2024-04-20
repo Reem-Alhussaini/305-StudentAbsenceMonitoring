@@ -62,7 +62,7 @@ public class StudentAbsenceMonitoringSystem_SWE {
         } else if (adminChoice == 2)  { //evaluate excuse
 
             //get Absences date
-            String date = Absence.getAbsencesDate(scanner);
+            String date = Admin.getDate(scanner);
 
             //display all excuses with the entered date
             StudentDBManagement.displayExcuses(date);
@@ -75,7 +75,7 @@ public class StudentAbsenceMonitoringSystem_SWE {
         } else System.out.println("Invalid choice");
     }
     //-----------------------------------------------------------------------------
-    static void parentFunctions(Scanner scanner) {
+    public static void parentFunctions(Scanner scanner) {
         System.out.println("You're choosing Add Excuse or View Excuse Status (for Parent)");
         System.out.println("Enter a number to select:");
         System.out.println("1. Submit Excuse");

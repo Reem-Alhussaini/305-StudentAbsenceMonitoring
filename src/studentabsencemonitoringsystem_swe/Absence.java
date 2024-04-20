@@ -69,11 +69,6 @@ public class Absence {
     }
 //-----------------------------------------------------------------------------
 
-    public static String getAbsencesDate(Scanner scanner) {
-        System.out.println("Enter the date of the absences you want to evaluate in this format \"dd/MM/yyyy\": ");
-        String strDate = scanner.next();
 
-        return strDate;
-    }
 
 }

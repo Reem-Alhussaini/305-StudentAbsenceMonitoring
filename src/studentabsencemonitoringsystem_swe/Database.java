@@ -8,28 +8,37 @@ import java.sql.*;
 
 public class Database {
 
-    //------------------------------------------------------------------------------------------------------------------
-    private static final String DB_URL = "jdbc:mysql://localhost:3306";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "Ar@121963";
-    private static final String DATABASE_NAME = "Students";
-    //------------------------------------------------------------------------------------------------------------------
-    public static void createDB() {
-        try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-             Statement st = con.createStatement()) {
+    public static void createDB(){
+        try{
+            Connection con = null;
+            String ConnectionURL = "jdbc:mysql://localhost:3306"; //didn't add a DB name since im creating one
 
-            st.executeUpdate("CREATE DATABASE " + DATABASE_NAME);
+            con = DriverManager.getConnection(ConnectionURL,"root","Ar@121963") ;
+
+            Statement st = con.createStatement();
+
+            st.executeUpdate("CREATE DATABASE Students");
+
             System.out.println("Database created");
 
-        } catch (SQLException e) {
-            System.out.println("couldn't create Database!");
-            e.printStackTrace();
+            con.close();
         }
+        catch (SQLException s){
+            System.out.println("SQL statement is not executed!");
+        }
+
     }
-    //------------------------------------------------------------------------------------------------------------------
-    public static void createTable() {
-        try (Connection con = DriverManager.getConnection(DB_URL + "/" + DATABASE_NAME, USERNAME, PASSWORD);
-             Statement st = con.createStatement()) {
+    public static void createTable(){
+        Connection connection;
+        try {
+            //path
+            String ConnectionURL = "jdbc:mysql://localhost:3306/students";
+
+            //(1) connect to DB
+            connection = DriverManager.getConnection(ConnectionURL, "root", "Ar@121963");
+
+            // (2) create table
+            Statement st = connection.createStatement();
 
             String table = "CREATE TABLE students (" +
                     "id INT PRIMARY KEY, " +
@@ -39,16 +48,18 @@ public class Database {
                     "cause_of_absence VARCHAR(200)," +
                     "evaluation VARCHAR(50))";
             st.executeUpdate(table);
-            System.out.println("Table created");
 
-        } catch (SQLException e) {
-            System.out.println("Couldn't create table");
-            e.printStackTrace();
+            System.out.println("table created");
+
+
+        }catch(SQLException e){
+            System.out.println("couldn't create table");
         }
     }
-    //------------------------------------------------------------------------------------------------------------------
-    public static void main(String[] args) {
+    public static void main (String[] args){
+
         //createDB();
         //createTable();
+
     }
 }

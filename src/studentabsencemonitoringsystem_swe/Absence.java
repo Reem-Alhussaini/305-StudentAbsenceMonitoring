@@ -76,5 +76,8 @@ public class Absence {
 
         return strDate;
     }
-
+// test
+    public static void getA(){
+        
+    }
 }

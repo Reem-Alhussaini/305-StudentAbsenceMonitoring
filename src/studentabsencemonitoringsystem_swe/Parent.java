@@ -13,9 +13,8 @@ public class Parent extends User {
 
         Absence absence = StudentDBManagement.getAbsenceForParent(studentID, date);
 
-            String status = null;
             if (absence != null) {
-                status = StudentDBManagement.insertExcuse(absence, reason);
+                String status = StudentDBManagement.insertExcuse(absence, reason);
                 Excuse excuse = new Excuse(reason, status);
                 absence.setExcuse(excuse);
             }else{

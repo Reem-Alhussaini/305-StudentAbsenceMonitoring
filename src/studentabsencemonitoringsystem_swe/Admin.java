@@ -12,7 +12,8 @@ public class Admin extends User {
     //----------------------------------------------------------
 
     public static void registerAbsence(Absence absence, Student student) throws IOException {
-        StudentDBManagement.insertStudent(student);
+        //only insert date, no adding new students because of login
+        //StudentDBManagement.insertStudent(student);
         StudentDBManagement.insertDate(absence, student);
     }
     //----------------------------------------------------------------------------------------------------

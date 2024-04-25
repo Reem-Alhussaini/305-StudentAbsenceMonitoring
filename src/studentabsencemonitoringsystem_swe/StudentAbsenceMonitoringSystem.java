@@ -7,40 +7,18 @@ public class StudentAbsenceMonitoringSystem {
 
     public static void main(String[] args) {
         System.out.println("****** Student Absence Monitoring System ******");
-        int choice;
-        Scanner scanner = new Scanner(System.in);
 
-        do {
-            displayMenu();
-            choice = scanner.nextInt();
-            handleChoice(choice);
-        } while (choice != 3);
-    }
-    //-----------------------------------------------------------------------------
-    static void displayMenu() {
-        System.out.println("Enter a number to select:");
-        System.out.println("1. Register Absence or Evaluate Excuse (for Admin)");
-        System.out.println("2. Submit Excuse or View Excuse Status (for Parent)");
-        System.out.println("3. Quit");
-    }
-    //-----------------------------------------------------------------------------
-    static void handleChoice(int choice) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner login = new Scanner(System.in);
+        System.out.println("Enter username: ");
+        String username = login.next();
+        System.out.println("Enter password: ");
+        String password = login.next();
 
-        if (choice == 1)
-            adminFunctions();
-        else if (choice == 2)
-            parentFunctions();
-        else if (choice == 3)
-            System.out.println("Quitting the program");
-        else
-            System.out.println("Invalid choice");
-
+        Database.login(username, password);
     }
     //-----------------------------------------------------------------------------
     static void adminFunctions() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("You're choosing Register Absence or Evaluate Excuse (for Admin)");
         System.out.println("Enter a number to select:");
         System.out.println("1. Register Absence");
         System.out.println("2. Evaluate Excuse");
@@ -78,7 +56,6 @@ public class StudentAbsenceMonitoringSystem {
     //-----------------------------------------------------------------------------
     public static void parentFunctions() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("You're choosing Add Excuse or View Excuse Status (for Parent)");
         System.out.println("Enter a number to select:");
         System.out.println("1. Submit Excuse");
         System.out.println("2. View Excuse Status");

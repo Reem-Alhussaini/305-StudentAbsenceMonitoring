@@ -15,11 +15,14 @@ public class Database {
         //remove comments of the calls to create the database and table
         //createDB();
         //createTable();
-        insertStudents();
+        //insertStudents();
+        createUsersTable();
+        insertUsers();
+
     }
     //----------------------------------------
 
-    public static void createDB() {
+    private static void createDB() {
         try (Connection con = DriverManager.getConnection(CON_URL, USERNAME, PASSWORD);
              Statement st = con.createStatement()) {
 
@@ -33,7 +36,7 @@ public class Database {
         }
     }
 
-    public static void createTable() {
+    private static void createStudentsTable() {
         try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
              Statement st = con.createStatement()) {
 
@@ -53,7 +56,25 @@ public class Database {
             e.printStackTrace();
         }
     }
-    public static void insertStudents(){
+
+    private static void createUsersTable() {
+        try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+             Statement st = con.createStatement()) {
+
+            String table = "CREATE TABLE users (" +
+                    "username VARCHAR(50),"+
+                    "password VARCHAR(50),"+
+                    "user_type VARCHAR(50))";
+            st.executeUpdate(table);
+            System.out.println("students Table created");
+
+
+        } catch (SQLException e) {
+            System.out.println("Couldn't create table or table already created");
+            e.printStackTrace();
+        }
+    }
+    private static void insertStudents(){
         try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD)){
             String[][] records = {
                     {"1", "reem", "alhussaini"},
@@ -76,11 +97,73 @@ public class Database {
             preparedStatement.executeBatch();
             preparedStatement.close();
 
-            System.out.println("records inserted successfully!");
+            System.out.println("students inserted successfully!");
 
         } catch (SQLException e) {
         System.out.println("Couldn't insert records or records already inserted");
         e.printStackTrace();
+        }
+    }
+
+    private static void insertUsers(){
+        try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD)){
+            String[][] records = {
+                    {"parent1", "parent1", "parent"},
+                    {"parent2", "parent2", "parent"},
+                    {"parent3", "parent3", "parent"},
+                    {"parent4", "parent4", "parent"},
+                    {"admin", "admin", "admin"}
+            };
+
+            String insertQuery = "INSERT INTO users (username, password, user_type) VALUES (?, ?, ?)";
+
+            PreparedStatement preparedStatement = con.prepareStatement(insertQuery);
+
+            for (String[] record : records) {
+                preparedStatement.setString(1, record[0]);
+                preparedStatement.setString(2, record[1]);
+                preparedStatement.setString(3, record[2]);
+                preparedStatement.addBatch();
+            }
+
+            preparedStatement.executeBatch();
+            preparedStatement.close();
+
+            System.out.println("users inserted successfully!");
+
+        } catch (SQLException e) {
+            System.out.println("Couldn't insert records or records already inserted");
+            e.printStackTrace();
+        }
+    }
+
+    public static void login(String username, String password){
+        try( Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD)) {
+
+            String sql = "SELECT * FROM users WHERE username=? AND password=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            String user = "";
+            statement.setString(1, username);
+            statement.setString(2, password);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String userType = resultSet.getString("user_type");
+
+                if ("parent".equals(userType)) {
+                    StudentAbsenceMonitoringSystem.parentFunctions();
+                } else if ("admin".equals(userType)) {
+                    StudentAbsenceMonitoringSystem.adminFunctions();
+                }
+            } else {
+                System.out.println("Invalid username or password.");
+                System.exit(0);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

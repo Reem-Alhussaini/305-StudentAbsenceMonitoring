@@ -8,7 +8,7 @@ public class StudentDBManagement {
     private static final String CONNECTION_URL = "jdbc:mysql://localhost:3306/student_absence_monitoring?user=root";
     private static final String USERNAME = "root";
     //change the password to your password
-    private static final String PASSWORD = "Ar@121963";
+    private static final String PASSWORD = "2002";
 
     //------------------------------------------------------------------------------------------------------------------
     private static Connection getConnection() throws SQLException {

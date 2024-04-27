@@ -1,5 +1,8 @@
 package studentabsencemonitoringsystem_swe;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Parent extends User {
@@ -17,6 +20,8 @@ public class Parent extends User {
                 String status = StudentDBManagement.insertExcuse(absence, reason);
                 Excuse excuse = new Excuse(reason, status);
                 absence.setExcuse(excuse);
+                // Write excuse information to file
+            writeExcuseToFile(studentID, date, reason, status);
             }else{
                 System.out.println("You may have entered a wrong date or ID, try again");
                 StudentAbsenceMonitoringSystem.parentFunctions();
@@ -52,5 +57,21 @@ public class Parent extends User {
     public static String getReason(Scanner scanner){
         System.out.println("Enter absence reason: ");
         return scanner.next();
+    }
+     private static void writeExcuseToFile(String studentID, String date, String reason, String status) {
+        try {
+            File file = new File("studentInfo.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            
+            FileWriter writer = new FileWriter(file, true); // true for append mode
+            writer.write("Student ID: " + studentID + ", Date: " + date + ", Reason: " + reason + ", Status: " + status + "\n");
+            writer.close();
+            System.out.println("Excuse submitted successfully and saved to file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing the excuse to file.");
+            e.printStackTrace();
+        }
     }
 }

@@ -8,14 +8,14 @@ public class Database {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/student_absence_monitoring?user=root";
     private static final String USERNAME = "root";
     //change the password to your password
-    private static final String PASSWORD = "Ar@121963";
+    private static final String PASSWORD = "2002";
     private static final String DATABASE_NAME = "student_absence_monitoring";
 
     public static void main(String[] args) {
         //remove comments of the calls to create the database and table
-        //createDB();
-        //createTable();
-        //insertStudents();
+//        createDB();
+//        createStudentsTable();
+//        insertStudents();
         createUsersTable();
         insertUsers();
 

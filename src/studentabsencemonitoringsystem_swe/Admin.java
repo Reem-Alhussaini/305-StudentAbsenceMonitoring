@@ -1,7 +1,9 @@
 package studentabsencemonitoringsystem_swe;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -58,11 +60,64 @@ public class Admin extends User {
 
     //----------------------------------------------------------------------------------------------------
     private static void evaluation(Scanner scanner, String studentID, String date, Excuse excuse) {
-        System.out.print("Evaluate excuse (accepted/rejected): ");
-        String newStatus = scanner.next();
-        int id = Integer.parseInt(studentID);
-        StudentDBManagement.insertStatus(id, date, newStatus);
-        excuse.setStatus(newStatus);
+        try {
+            // Convert studentID to string
+            String studentIDString = String.valueOf(studentID);
+
+            // Read the contents of the file
+            File file = new File("studentInfo.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            StringBuilder fileContent = new StringBuilder();
+            String line;
+            boolean found = false;
+
+            // Process each line in the file
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(", ");
+                String currentStudentID = parts[0].substring(parts[0].indexOf(":") + 2);
+                String currentDate = parts[1].substring(parts[1].indexOf(":") + 2);
+                String currentStatus = parts[2].substring(parts[2].indexOf(":") + 2);
+
+                // Check if the current line corresponds to the excuse being evaluated
+                if (currentStudentID.equals(studentIDString) && currentDate.equals(date)) {
+                    found = true;
+                    // Display the reason for absence
+                    System.out.println("Reason for absence: " + excuse.getReason());
+
+                    // Prompt admin to accept or reject the excuse
+                    System.out.print("Evaluate excuse (accept/reject): ");
+                    String newStatus = scanner.next();
+                    if (newStatus.equalsIgnoreCase("accept") || newStatus.equalsIgnoreCase("reject")) {
+                        // Update the status only if it changes
+                        if (!currentStatus.equals(newStatus)) {
+                            // Update the status in the file content
+                            line = "Student ID: " + studentIDString + ", Date: " + date + ", Status: " + newStatus;
+                            System.out.println("Excuse status updated to " + newStatus + ".");
+                        } else {
+                            System.out.println("Excuse status remains unchanged.");
+                        }
+                    } else {
+                        System.out.println("Invalid input. Excuse status remains unchanged.");
+                    }
+                }
+                // Append the current line to the file content
+                fileContent.append(line).append("\n");
+            }
+            reader.close();
+
+            if (!found) {
+                System.out.println("Excuse not found in the file.");
+                return;
+            }
+
+            // Write the modified contents back to the file
+            FileWriter writer = new FileWriter(file);
+            writer.write(fileContent.toString());
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while updating the excuse status in the file.");
+            e.printStackTrace();
+        }
     }
 
     //----------------------------------------------------------------------------------------------------

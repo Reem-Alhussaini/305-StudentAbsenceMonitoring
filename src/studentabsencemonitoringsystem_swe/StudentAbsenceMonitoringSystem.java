@@ -8,13 +8,14 @@ public class StudentAbsenceMonitoringSystem {
     public static void main(String[] args) {
         System.out.println("****** Student Absence Monitoring System ******");
 
-        Scanner login = new Scanner(System.in);
-        System.out.println("Enter username: ");
-        String username = login.next();
-        System.out.println("Enter password: ");
-        String password = login.next();
+        try (Scanner login = new Scanner(System.in)) {
+            System.out.println("Enter username: ");
+            String username = login.next();
+            System.out.println("Enter password: ");
+            String password = login.next();
 
-        Database.login(username, password);
+            Database.login(username, password);
+        }
     }
     //-----------------------------------------------------------------------------
     static void adminFunctions() {

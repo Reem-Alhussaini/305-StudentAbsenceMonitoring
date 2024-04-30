@@ -52,6 +52,19 @@ public class StudentDBManagement {
             statement2.setString(2, student.getId());
 
             statement2.executeUpdate();
+            
+            // Create an instance of the AbsenceTimer class
+            Absence_Timer absenceTimer = new Absence_Timer(absence);
+            // Start the timer
+            absenceTimer.startTimer();
+            
+//            // Optionally, check if the timer is running
+//            if (absenceTimer.isTimerRunning()) {
+//                System.out.println("Timer is running.");
+//            }
+//            // When you want to stop the timer
+//            absenceTimer.stopTimer();
+
             System.out.println("Absence date added successfully");
         } catch (SQLException e) {
             System.out.println("Couldn't add absence date, you might have entered a name that doesn't exist in the Database");

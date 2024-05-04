@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package studentabsencemonitoringsystem_swe;
 
 /**
@@ -62,8 +59,6 @@ public class GUI_ParentAbsenceExcuse extends javax.swing.JFrame {
         });
 
         jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 15)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(102, 102, 102));
-        jTextField1.setText("Enter student ID");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -74,9 +69,7 @@ public class GUI_ParentAbsenceExcuse extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Times New Roman", 0, 15)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(102, 102, 102));
         jTextArea1.setRows(5);
-        jTextArea1.setText("Enter student excuse..");
         jTextArea1.setToolTipText("");
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -155,7 +148,13 @@ public class GUI_ParentAbsenceExcuse extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // submit Button
-        new GUI_ParentExcuseAdded().setVisible(true);
+        // stroring all the input in varibles
+        String studentID = jTextField1.getText();
+        String dateOfAbsence = jFormattedTextField1.getText();
+        String absenceReason = jTextArea1.getText();
+        
+        Parent.submitExcuse(studentID, dateOfAbsence, absenceReason);
+        
         setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -190,7 +189,9 @@ public class GUI_ParentAbsenceExcuse extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI_ParentAbsenceExcuse().setVisible(true);
+                GUI_ParentAbsenceExcuse frame = new GUI_ParentAbsenceExcuse();
+                frame.setVisible(true);
+                frame.setLocationRelativeTo(null); // Center the window
             }
         });
     }

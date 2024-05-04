@@ -1,5 +1,6 @@
 package studentabsencemonitoringsystem_swe;
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 //this class must be run first and never again (one time use)
 public class Database {
@@ -8,7 +9,7 @@ public class Database {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/student_absence_monitoring?user=root";
     private static final String USERNAME = "root";
     //change the password to your password
-    private static final String PASSWORD = "2002";
+    private static final String PASSWORD = "rsha.2002";
     private static final String DATABASE_NAME = "student_absence_monitoring";
 
     public static void main(String[] args) {
@@ -139,7 +140,7 @@ public class Database {
 
     public static void login(String username, String password){
         try( Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD)) {
-
+            
             String sql = "SELECT * FROM users WHERE username=? AND password=?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -153,13 +154,16 @@ public class Database {
                 String userType = resultSet.getString("user_type");
 
                 if ("parent".equals(userType)) {
-                    StudentAbsenceMonitoringSystem.parentFunctions();
+                    new GUI_Parent().setVisible(true);
+//                    StudentAbsenceMonitoringSystem.parentFunctions();
                 } else if ("admin".equals(userType)) {
-                    StudentAbsenceMonitoringSystem.adminFunctions();
+                    new GUI_Admin().setVisible(true);
+//                    StudentAbsenceMonitoringSystem.adminFunctions();
                 }
             } else {
-                System.out.println("Invalid username or password.");
-                System.exit(0);
+//                System.out.println("Invalid username or password.");
+//                System.exit(0);
+                  JOptionPane.showMessageDialog(null, "Invalid username or password.");
             }
 
         } catch (SQLException e) {

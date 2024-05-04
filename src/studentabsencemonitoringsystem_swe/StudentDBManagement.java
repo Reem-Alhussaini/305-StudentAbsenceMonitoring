@@ -2,13 +2,14 @@ package studentabsencemonitoringsystem_swe;
 
 
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class StudentDBManagement {
 
     private static final String CONNECTION_URL = "jdbc:mysql://localhost:3306/student_absence_monitoring?user=root";
     private static final String USERNAME = "root";
     //change the password to your password
-    private static final String PASSWORD = "2002";
+    private static final String PASSWORD = "rsha.2002";
 
     //------------------------------------------------------------------------------------------------------------------
     private static Connection getConnection() throws SQLException {
@@ -34,40 +35,44 @@ public class StudentDBManagement {
     //------------------------------------------------------------------------------------------------------------------
     public static void insertDate(Absence absence, Student student) {
         try (Connection con = getConnection()) {
-
-            //check if id exists in the database
+            
+            // check if id exists in the database
             int id = Integer.parseInt(student.getId());
             PreparedStatement statement1 = con.prepareStatement("SELECT id FROM students WHERE id = ?");
             statement1.setInt(1, id);
             ResultSet resultSet = statement1.executeQuery();
-            if(!resultSet.next()){
-                System.out.println("\nThe id you provided doesn't exist in the Database\n");
-                StudentAbsenceMonitoringSystem.adminFunctions();
-            }
-
-
-            PreparedStatement statement2 = con.prepareStatement("UPDATE students SET date = ? WHERE id = ?");
-
-            statement2.setString(1, absence.getDate());
-            statement2.setString(2, student.getId());
-
-            statement2.executeUpdate();
             
-            // Create an instance of the AbsenceTimer class
-            Absence_Timer absenceTimer = new Absence_Timer(absence);
-            // Start the timer
-            absenceTimer.startTimer();
-            
+            // if The id you provided doesn't exist in the Database 
+            boolean next = resultSet.next();
+            if(!next){
+                JOptionPane.showMessageDialog(null, "The id you provided doesn't exist in the Database");
+//                System.out.println("\nThe id you provided doesn't exist in the Database\n");
+//                StudentAbsenceMonitoringSystem.adminFunctions();
+            } else { //if The id you provided exist in the Database 
+                PreparedStatement statement2 = con.prepareStatement("UPDATE students SET date = ? WHERE id = ?");
+
+                statement2.setString(1, absence.getDate());
+                statement2.setString(2, student.getId());
+
+                statement2.executeUpdate();
+
+                // Create an instance of the AbsenceTimer class
+                Absence_Timer absenceTimer = new Absence_Timer(absence);
+                // Start the timer
+                absenceTimer.startTimer();
+
 //            // Optionally, check if the timer is running
 //            if (absenceTimer.isTimerRunning()) {
 //                System.out.println("Timer is running.");
 //            }
 //            // When you want to stop the timer
 //            absenceTimer.stopTimer();
-
-            System.out.println("Absence date added successfully");
+                JOptionPane.showMessageDialog(null, "Absence date added successfully");
+//                System.out.println("Absence date added successfully");
+            }
         } catch (SQLException e) {
-            System.out.println("Couldn't add absence date, you might have entered a name that doesn't exist in the Database");
+            JOptionPane.showMessageDialog(null, "Couldn't add absence date, you might have entered a name that doesn't exist in the Database");
+//            System.out.println("Couldn't add absence date, you might have entered a name that doesn't exist in the Database");
             e.printStackTrace();
         }
     }
@@ -84,10 +89,12 @@ public class StudentDBManagement {
             statement.setString(3, absence.getDate());
 
             statement.executeUpdate();
-            System.out.println("Excuse added successfully");
+            JOptionPane.showMessageDialog(null, "Excuse added successfully");
+//            System.out.println("Excuse added successfully");
             return "waiting for evaluation";
         } catch (SQLException e) {
-            System.out.println("Couldn't add excuse:");
+            JOptionPane.showMessageDialog(null, "Couldn't add excuse");
+//            System.out.println("Couldn't add excuse:");
             e.printStackTrace();
             return null;
         }
@@ -118,6 +125,8 @@ public class StudentDBManagement {
             ResultSet result = st.executeQuery(
                     "SELECT date, id, cause_of_absence, evaluation FROM students WHERE date = '" + date + "'");
 
+            StringBuilder message = new StringBuilder();
+            
             while (result.next()) {
                 String dateOfAbsence = result.getString("date");
                 int studentId = result.getInt("id");
@@ -125,14 +134,25 @@ public class StudentDBManagement {
                 String evaluation = result.getString("evaluation");
 
                 if(causeOfAbsence != null && evaluation != null) {
-                    System.out.println("Date of absence: " + dateOfAbsence);
-                    System.out.println("Student ID: " + studentId);
-                    System.out.println("Reason for absence: " + causeOfAbsence);
-                    System.out.println("Current status: " + evaluation + "\n");
+                    message.append("Date of absence: ").append(dateOfAbsence)
+                            .append("\nStudent ID: ").append(studentId)
+                            .append("\nReason for absence: ").append(causeOfAbsence)
+                            .append("\nCurrent status: ").append(evaluation)
+                            .append("\n\n");
+//                    JOptionPane.showMessageDialog(null, "Date of absence: " + dateOfAbsence 
+//                            +"\nStudent ID: " + studentId + 
+//                            "\nReason for absence: " + causeOfAbsence + 
+//                            "\nCurrent status: " + evaluation);
+//                    System.out.println("Date of absence: " + dateOfAbsence);
+//                    System.out.println("Student ID: " + studentId);
+//                    System.out.println("Reason for absence: " + causeOfAbsence);
+//                    System.out.println("Current status: " + evaluation + "\n");
                 }
             }
+            // display message
+            JOptionPane.showMessageDialog(null, message.toString());
         } catch (SQLException e) {
-            System.out.println("Couldn't display excuses:");
+            JOptionPane.showMessageDialog(null, "Couldn't display excuses:");
             e.printStackTrace();
         }
     }
@@ -149,10 +169,12 @@ public class StudentDBManagement {
                 String evaluation = result.getString("evaluation");
                 return new Excuse(causeOfAbsence,evaluation);
             } else {
-                System.out.println("No records found for the given id and date.");
+                JOptionPane.showMessageDialog(null, "No records found for the given id and date.");
+//                System.out.println("No records found for the given id and date.");
             }
         } catch (SQLException e) {
-            System.out.println("Couldn't display the excuse:");
+            JOptionPane.showMessageDialog(null, "Couldn't display the excuse.");
+//            System.out.println("Couldn't display the excuse:");
             e.printStackTrace();
         }
         return null;
@@ -171,11 +193,13 @@ public class StudentDBManagement {
                 Student student = new Student(f_name, l_name, studentID);
                 return new Absence(student, date, null);
             } else {
-                System.out.println("There is no absence registered for this student ID or this date, try again");
-                StudentAbsenceMonitoringSystem.parentFunctions();
+                JOptionPane.showMessageDialog(null, "There is no absence registered for this student ID or this date, try again");
+//                System.out.println("There is no absence registered for this student ID or this date, try again");
+//                StudentAbsenceMonitoringSystem.parentFunctions();
             }
         } catch (SQLException e) {
-            System.out.println("Error occurred while fetching absence information:");
+            JOptionPane.showMessageDialog(null, "Error occurred while fetching absence information");
+//            System.out.println("Error occurred while fetching absence information:");
             e.printStackTrace();
         }
         return null;

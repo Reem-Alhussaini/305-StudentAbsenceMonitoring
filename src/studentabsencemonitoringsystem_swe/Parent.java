@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class Parent extends User {
 
@@ -23,8 +24,9 @@ public class Parent extends User {
                 // Write excuse information to file
             writeExcuseToFile(studentID, date, reason, status);
             }else{
-                System.out.println("You may have entered a wrong date or ID, try again");
-                StudentAbsenceMonitoringSystem.parentFunctions();
+                JOptionPane.showMessageDialog(null, "You may have entered a wrong date or ID, try again");
+//                System.out.println("You may have entered a wrong date or ID, try again");
+//                StudentAbsenceMonitoringSystem.parentFunctions();
             }
 
     }
@@ -33,9 +35,11 @@ public class Parent extends User {
         Excuse excuse = StudentDBManagement.getExcuse(studentID, date);
 
         if (excuse != null)
-            System.out.println("The excuse status is: " + excuse.getStatus());
+            JOptionPane.showMessageDialog(null,"The excuse status is: " + excuse.getStatus());
+//            System.out.println("The excuse status is: " + excuse.getStatus());
         else
-            System.out.println("absence was not found");
+            JOptionPane.showMessageDialog(null,"absence was not found");
+//            System.out.println("absence was not found");
     }
     //---------------------------------------------------------------------------------------------------
     public static String getStudentID(Scanner scanner, int parentChoice) {
@@ -49,16 +53,17 @@ public class Parent extends User {
         return null;
     }
     //---------------------------------------------------------------------------------------------------
-    public static String getDate(Scanner scanner){
-        System.out.println("Enter the date of absence in this format \"yyyy-mm-dd\": ");
-        return scanner.next();
-    }
+//    public static String getDate(Scanner scanner){
+//        System.out.println("Enter the date of absence in this format \"yyyy-mm-dd\": ");
+//        return scanner.next();
+//    }
     //---------------------------------------------------------------------------------------------------
-    public static String getReason(Scanner scanner){
-        System.out.println("Enter absence reason: ");
-        return scanner.next();
-    }
-     private static void writeExcuseToFile(String studentID, String date, String reason, String status) {
+//    public static String getReason(Scanner scanner){
+//        System.out.println("Enter absence reason: ");
+//        return scanner.next();
+//    }
+    //---------------------------------------------------------------------------------------------------
+    private static void writeExcuseToFile(String studentID, String date, String reason, String status) {
         try {
             File file = new File("studentInfo.txt");
             if (!file.exists()) {
@@ -68,9 +73,12 @@ public class Parent extends User {
             FileWriter writer = new FileWriter(file, true); // true for append mode
             writer.write("Student ID: " + studentID + ", Date: " + date + ", Reason: " + reason + ", Status: " + status + "\n");
             writer.close();
-            System.out.println("Excuse submitted successfully and saved to file.");
+
+            JOptionPane.showMessageDialog(null, "Excuse submitted successfully and saved to file.");
+//            System.out.println("Excuse submitted successfully and saved to file.");
         } catch (IOException e) {
-            System.out.println("An error occurred while writing the excuse to file.");
+            JOptionPane.showMessageDialog(null, "An error occurred while writing the excuse to file.");
+//            System.out.println("An error occurred while writing the excuse to file.");
             e.printStackTrace();
         }
     }

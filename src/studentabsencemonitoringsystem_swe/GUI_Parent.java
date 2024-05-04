@@ -106,7 +106,7 @@ public class GUI_Parent extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // back button
-        new GUI_ParentLogin().setVisible(true);
+        new GUI_Login().setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -140,7 +140,9 @@ public class GUI_Parent extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI_Parent().setVisible(true);
+                GUI_Parent frame = new GUI_Parent();
+                frame.setVisible(true);
+                frame.setLocationRelativeTo(null); // Center the window
             }
         });
     }

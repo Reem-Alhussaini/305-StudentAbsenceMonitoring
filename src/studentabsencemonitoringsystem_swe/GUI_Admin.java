@@ -93,8 +93,8 @@ public class GUI_Admin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // evaluate excuse button
-        new GUI_AdminEvaluateExcuse().setVisible(true);
+        // Display excuses button
+        new GUI_AdminDisplayExcuse().setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -106,7 +106,7 @@ public class GUI_Admin extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // back button
-        new GUI_AdminLogin().setVisible(true);
+        new GUI_Login().setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -140,7 +140,9 @@ public class GUI_Admin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI_Admin().setVisible(true);
+                GUI_Admin frame = new GUI_Admin();
+                frame.setVisible(true);
+                frame.setLocationRelativeTo(null); // Center the window
             }
         });
     }

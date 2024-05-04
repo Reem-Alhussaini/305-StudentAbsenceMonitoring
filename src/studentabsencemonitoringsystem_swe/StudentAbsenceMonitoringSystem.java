@@ -6,16 +6,21 @@ import java.io.IOException;
 public class StudentAbsenceMonitoringSystem {
 
     public static void main(String[] args) {
-        System.out.println("****** Student Absence Monitoring System ******");
+        
+        // run GUI 
+        GUI_MainFrame gui = new GUI_MainFrame();
+        gui.runGUI();
+        
+//        System.out.println("****** Student Absence Monitoring System ******");
 
-        try (Scanner login = new Scanner(System.in)) {
-            System.out.println("Enter username: ");
-            String username = login.next();
-            System.out.println("Enter password: ");
-            String password = login.next();
-
-            Database.login(username, password);
-        }
+        //try { //(Scanner login = new Scanner(System.in)) {
+//            System.out.println("Enter username: ");
+//            String username = login.next();
+//            System.out.println("Enter password: ");
+//            String password = login.next();
+            
+            //Database.login(username, password);
+        //}
     }
     //-----------------------------------------------------------------------------
     static void adminFunctions() {
@@ -27,30 +32,30 @@ public class StudentAbsenceMonitoringSystem {
         //--------------------------------------------------------------------------------------------------------------
         if (adminChoice == 1) {
             //register absence
-            try {
+//            try {
                 //prompt admin for absence info
-                Absence absence = Absence.getAbsenceInfo(scanner);
+//                Absence absence = Absence.getAbsenceInfo(scanner);
 
                 //get Student object
-                Student student = absence.getStudent();
-
+//                Student student = absence.getStudent();
+                
                 //register absence in file
-                Admin.registerAbsence(absence, student);
+//                Admin.registerAbsence(absence, student);
 
-            } catch (IOException e) { System.out.println("Error: couldn't register absence\n" + e);}
+//            } catch (IOException e) { System.out.println("Error: couldn't register absence\n" + e);}
         //--------------------------------------------------------------------------------------------------------------
         } else if (adminChoice == 2)  { //evaluate excuse
 
-            //get Absences date
-            String date = Admin.getDate(scanner);
-
-            //display all excuses with the entered date
-            StudentDBManagement.displayExcuses(date);
-
-            //let admin choose which excuse to evaluate
-            String id = Admin.getStudentID(scanner);
-
-            Admin.evaluateExcuse(id, date, scanner);
+//            //get Absences date
+//            String date = Admin.getDate(scanner);
+//
+//            //display all excuses with the entered date
+//            StudentDBManagement.displayExcuses(date);
+//
+//            //let admin choose which excuse to evaluate
+//            String id = Admin.getStudentID(scanner);
+//
+//            Admin.evaluateExcuse(id, date, scanner);
         //--------------------------------------------------------------------------------------------------------------
         } else System.out.println("Invalid choice");
     }
@@ -66,27 +71,27 @@ public class StudentAbsenceMonitoringSystem {
         if (parentChoice == 1) { //submit excuse
 
             //get Student ID
-            String id = Parent.getStudentID(scanner, parentChoice);
+//            String id = Parent.getStudentID(scanner, parentChoice);
 
             //get absence date
-            String date = Parent.getDate(scanner);
+//            String date = Parent.getDate(scanner);
 
             //get excuse reason
-            String reason = Parent.getReason(scanner);
+//            String reason = Parent.getReason(scanner);
 
             //submit excuse
-            Parent.submitExcuse(id, date, reason);
+//            Parent.submitExcuse(id, date, reason);
 
         //--------------------------------------------------------------------------------------------------------------
         } else if (parentChoice == 2) { //view excuse status
-            //get Student ID
-            String id = Parent.getStudentID(scanner, parentChoice);
-
-            //get absence date
-            String date = Parent.getDate(scanner);
-
-            //view excuse status
-            Parent.viewExcuseStatus(id, date);
+//            //get Student ID
+//            String id = Parent.getStudentID(scanner, parentChoice);
+//
+//            //get absence date
+//            String date = Parent.getDate(scanner);
+//
+//            //view excuse status
+//            Parent.viewExcuseStatus(id, date);
         //--------------------------------------------------------------------------------------------------------------
         } else System.out.println("Invalid choice");
 

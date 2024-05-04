@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package studentabsencemonitoringsystem_swe;
 
-/**
- *
- * @author a
- */
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -59,14 +50,14 @@ public class Server implements Runnable {
             this.serverGUI = serverGUI;
         }
 
-        
         @Override
         public void run() {
+            boolean transmissionEnded = false; // Flag to track whether transmission has ended
             try {
                 ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
 
-                while (true) {
+                while (!transmissionEnded) {
                     try {
                         int rating = in.readInt();
                         serverGUI.appendLog("Received rating from " + clientSocket.getInetAddress().getHostAddress() + ": " + rating);
@@ -77,15 +68,17 @@ public class Server implements Runnable {
                         serverGUI.appendLog("Received suggestion from " + clientSocket.getInetAddress().getHostAddress() + ": " + suggestion);
                         out.writeObject("Suggestion received successfully!");
                         out.flush();
-                    } catch (EOFException | SocketException e) {
-                        // Handle the EOFException (client closed the connection unexpectedly)
-                        serverGUI.appendLog("Client disconnected unexpectedly: " + clientSocket.getInetAddress().getHostAddress());
+
+                        // Check for the "END" message to close the connection
+                        String endMessage = (String) in.readObject();
+                        if (endMessage.equals("END")) {
+                            serverGUI.appendLog("End of transmission received from " + clientSocket.getInetAddress().getHostAddress());
+                            transmissionEnded = true; // Set the flag to indicate end of transmission
+                        }
+                    } catch (SocketException e) {
+                        serverGUI.appendLog("SocketException: Client disconnected unexpectedly: " + clientSocket.getInetAddress().getHostAddress());
                         break; // Exit the loop to stop processing the client connection
-                    } catch (IOException e) {
-                        // Handle other IOExceptions
-                        e.printStackTrace();
-                        break; // Exit the loop to stop processing the client connection
-                    } catch (ClassNotFoundException e) {
+                    } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                         break; // Exit the loop to stop processing the client connection
                     }

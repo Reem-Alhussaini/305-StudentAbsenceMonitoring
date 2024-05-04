@@ -98,38 +98,39 @@ public class GUI_Client extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
-    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-        Socket socket = new Socket("localhost", 8189);
-        System.out.println("Connected to server!");
+            Socket socket = new Socket("localhost", 8189);
+            System.out.println("Connected to server!");
 
-        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
-        int rating = Integer.parseInt(jTextPane1.getText());
-        out.writeInt(rating);
-        out.flush();
+            int rating = Integer.parseInt(jTextPane1.getText());
+            out.writeInt(rating);
+            out.flush();
 
-        String suggestion = jTextPane2.getText();
-        out.writeObject(suggestion);
-        out.flush();
+            String suggestion = jTextPane2.getText();
+            out.writeObject(suggestion);
+            out.flush();
 
+            // Add an explicit message indicating the end of transmission
+            out.writeObject("END");
+            out.flush();
 
-        String serverMessage = (String) in.readObject();
-        System.out.println("Server: " + serverMessage);
+            String serverMessage = (String) in.readObject();
+            System.out.println("Server: " + serverMessage);
 
-        // Close the socket and streams
-        socket.close();
-        out.close();
-        in.close();
-        
-    } catch (IOException | ClassNotFoundException e) {
-        e.printStackTrace();
-    }
+            // Close the socket and streams
+            socket.close();
+            out.close();
+            in.close();
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
 
     /**
      * @param args the command line arguments

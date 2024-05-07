@@ -44,9 +44,9 @@ public class StudentDBManagement {
                 absenceTimer.startTimer();
 
 //            // Optionally, check if the timer is running
-//            if (absenceTimer.isTimerRunning()) {
-//                System.out.println("Timer is running.");
-//            }
+            if (absenceTimer.isTimerRunning()) {
+                System.out.println("Timer is running.");
+            }
 
 //            // When you want to stop the timer
 //            absenceTimer.stopTimer();

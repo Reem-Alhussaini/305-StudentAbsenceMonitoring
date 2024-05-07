@@ -32,7 +32,7 @@ public class Admin extends User {
             displayInfo();
 
             //store evaluation in the file
-            evaluation(evaluation, studentID, date, excuse);
+            evaluation(evaluation, studentID, date);
 
             //store evaluation in database
             int id = Integer.parseInt(studentID);
@@ -50,15 +50,17 @@ public class Admin extends User {
             
             StringBuilder message = new StringBuilder();
             String line;
-            
+
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(", ");
                 String studentID = parts[0].substring(parts[0].indexOf(":") + 2);
                 String date = parts[1].substring(parts[1].indexOf(":") + 2);
-                String evaluation = parts[2].substring(parts[2].indexOf(":") + 2);
+                String reason = parts[2].substring(parts[2].indexOf(":") + 2);
+                String evaluation = parts[3].substring(parts[3].indexOf(":") + 2);
 
                 message.append("Student ID: ").append(studentID)
                         .append("\nDate: ").append(date)
+                        .append("\nReason: ").append(reason)
                         .append("\nCurrent status: ").append(evaluation)
                         .append("\n\n");
             }
@@ -72,9 +74,9 @@ public class Admin extends User {
     }
 
     //----------------------------------------------------------------------------------------------------
-    private static void evaluation(String evaluation, String studentID, String date, Excuse excuse) {
-        try(BufferedReader reader = new BufferedReader(new FileReader("studentInfo.txt"));
-            FileWriter writer = new FileWriter("studentInfo.txt");) {
+    private static void evaluation(String evaluation, String studentID, String date) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("studentInfo.txt"));
+             FileWriter writer = new FileWriter("studentInfo.txt");) {
 
             // Convert studentID to string
             String studentIDString = String.valueOf(studentID);
@@ -89,7 +91,8 @@ public class Admin extends User {
                 String[] parts = line.split(", ");
                 String currentStudentID = parts[0].substring(parts[0].indexOf(":") + 2);
                 String currentDate = parts[1].substring(parts[1].indexOf(":") + 2);
-                String currentStatus = parts[2].substring(parts[2].indexOf(":") + 2);
+                String currentReason = parts[2].substring(parts[2].indexOf(":") + 2);
+                String currentStatus = parts[3].substring(parts[3].indexOf(":") + 2);
 
                 // Check if the current line corresponds to the excuse being evaluated
                 if (currentStudentID.equals(studentIDString) && currentDate.equals(date)) {
@@ -99,7 +102,7 @@ public class Admin extends User {
                         // Update the status only if it's waiting for evaluation
                         if (!currentStatus.equals(evaluation)) {
                             // Update the status in the file content
-                            line = "Student ID: " + studentIDString + ", Date: " + date + ", Status: " + evaluation;
+                            line = "Student ID: " + studentIDString + ", Date: " + date + ", Reason: " + currentReason + ", evaluation: " + evaluation;
                             JOptionPane.showMessageDialog(null, "Excuse status updated to " + evaluation + ".");
                         } else {
                             JOptionPane.showMessageDialog(null, "Excuse already evaluated.");

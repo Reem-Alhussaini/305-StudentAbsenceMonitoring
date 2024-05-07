@@ -45,7 +45,7 @@ public class Parent extends User {
             if (!file.exists()) {
                 file.createNewFile();
             }
-            
+
             FileWriter writer = new FileWriter(file, true); // true for append mode
             writer.write("Student ID: " + studentID + ", Date: " + date + ", Reason: " + reason + ", Status: " + status + "\n");
             writer.close();

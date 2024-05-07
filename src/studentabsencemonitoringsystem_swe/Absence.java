@@ -53,22 +53,8 @@ public class Absence {
 
     public static Absence getAbsenceInfo(String fname, String lname, String id, String date) {
 
-//        System.out.print("Enter Student first name:");
-//        String fname = scanner.next();
-//        System.out.print("Enter Student last name:");
-//        String lname = scanner.next();
-//        System.out.print("Enter Student ID:");
-//        String id = scanner.next();
-
         Student student = new Student(fname, lname, id);
-
-//        System.out.print("Enter absence Date in this format \"yyyy-mm-dd\": ");
-//        String date = scanner.next();
 
         return new Absence(student, date, null);
     }
-//-----------------------------------------------------------------------------
-
-
-//test
 }

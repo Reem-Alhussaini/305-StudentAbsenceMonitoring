@@ -1,10 +1,5 @@
-
 package studentabsencemonitoringsystem_swe;
 
-/**
- *
- * @author reemasamir
- */
 public class Absence_Timer implements Runnable {
 
     private Thread thread;

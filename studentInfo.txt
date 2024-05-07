@@ -1,5 +1,0 @@
-Student ID: 2, Date: 2022-10-10, Status: accepted
-Student ID: 2, Date: 2022-10-11, Status: reject
-Student ID: 1, Date: 2023-10-10, Status: accept
-Student ID: 3, Date: 1/2/23, Status: accept
-Student ID: 4, Date: 1/1/24, Status: accept

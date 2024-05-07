@@ -1,19 +1,11 @@
-
 package studentabsencemonitoringsystem_swe;
 
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author reemasamir
- */
 public class GUI_AdminRegisterAbsence extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GUI_AdminRegisterAbsence
-     */
     public GUI_AdminRegisterAbsence() {
         initComponents();
     }
@@ -155,27 +147,27 @@ public class GUI_AdminRegisterAbsence extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // back button
         new GUI_Admin().setVisible(true);
         setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         // ok button
-        // stroring all the input in varibles
+        // storing all the input in variables
         String firstName = jTextField2.getText();
         String lastName = jTextField3.getText();
         String studentID = jTextField1.getText();
@@ -186,9 +178,7 @@ public class GUI_AdminRegisterAbsence extends javax.swing.JFrame {
 
             //get Student object
             Student student = absence.getStudent();
-            // exmaple
-//            System.out.println("GUI_AdminRegisterAbsence "+student.getF_name());
-            
+
             //register absence in file
             Admin.registerAbsence(absence, student);
 
@@ -197,11 +187,11 @@ public class GUI_AdminRegisterAbsence extends javax.swing.JFrame {
         }
         
         setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }
 
     public static void main(String args[]) {
         
-        /* Create and display the form */
+        //Create and display the form
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 GUI_AdminRegisterAbsence frame = new GUI_AdminRegisterAbsence();
@@ -211,7 +201,6 @@ public class GUI_AdminRegisterAbsence extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -223,5 +212,5 @@ public class GUI_AdminRegisterAbsence extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    // End of variables declaration//GEN-END:variables
+
 }

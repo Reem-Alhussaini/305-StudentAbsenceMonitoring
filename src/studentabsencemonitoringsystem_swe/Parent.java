@@ -25,8 +25,6 @@ public class Parent extends User {
             writeExcuseToFile(studentID, date, reason, status);
             }else{
                 JOptionPane.showMessageDialog(null, "You may have entered a wrong date or ID, try again");
-//                System.out.println("You may have entered a wrong date or ID, try again");
-//                StudentAbsenceMonitoringSystem.parentFunctions();
             }
 
     }
@@ -36,32 +34,10 @@ public class Parent extends User {
 
         if (excuse != null)
             JOptionPane.showMessageDialog(null,"The excuse status is: " + excuse.getStatus());
-//            System.out.println("The excuse status is: " + excuse.getStatus());
+
         else
             JOptionPane.showMessageDialog(null,"absence was not found");
-//            System.out.println("absence was not found");
     }
-    //---------------------------------------------------------------------------------------------------
-    public static String getStudentID(Scanner scanner, int parentChoice) {
-        if(parentChoice == 1) {
-            System.out.println("Enter the ID of the student you want to submit an excuse for: ");
-            return scanner.next();
-        }else if (parentChoice == 2){
-            System.out.println("Enter the ID of the student you want to view the excuse for: ");
-            return scanner.next();
-        }
-        return null;
-    }
-    //---------------------------------------------------------------------------------------------------
-//    public static String getDate(Scanner scanner){
-//        System.out.println("Enter the date of absence in this format \"yyyy-mm-dd\": ");
-//        return scanner.next();
-//    }
-    //---------------------------------------------------------------------------------------------------
-//    public static String getReason(Scanner scanner){
-//        System.out.println("Enter absence reason: ");
-//        return scanner.next();
-//    }
     //---------------------------------------------------------------------------------------------------
     private static void writeExcuseToFile(String studentID, String date, String reason, String status) {
         try {
@@ -75,10 +51,9 @@ public class Parent extends User {
             writer.close();
 
             JOptionPane.showMessageDialog(null, "Excuse submitted successfully and saved to file.");
-//            System.out.println("Excuse submitted successfully and saved to file.");
+
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "An error occurred while writing the excuse to file.");
-//            System.out.println("An error occurred while writing the excuse to file.");
             e.printStackTrace();
         }
     }

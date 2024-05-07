@@ -17,23 +17,26 @@ public class Admin extends User {
     //----------------------------------------------------------
 
     public static void registerAbsence(Absence absence, Student student) throws IOException {
-        //only insert date, no adding new students because of login
-        //StudentDBManagement.insertStudent(student);
-//        System.out.println("Admin");
+
         StudentDBManagement.insertDate(absence, student);
     }
 
     //----------------------------------------------------------------------------------------------------
-    public static void evaluateExcuse(String studentID, String date, String evaluation) { //needs modification
-        // Step 1: find absence object associated with the id given by admin
+    public static void evaluateExcuse(String studentID, String date, String evaluation) {
+        //find absence object associated with the id given by admin
         Excuse excuse = StudentDBManagement.getExcuse(studentID, date);
 
         if (excuse != null) {
 
-            // Step 2: Display reason for absence and current status of the excuse
+            //Display reason for absence and current status of the excuse
             displayInfo();
 
+            //store evaluation in the file
             evaluation(evaluation, studentID, date, excuse);
+
+            //store evaluation in database
+            int id = Integer.parseInt(studentID);
+            StudentDBManagement.insertStatus( id,  date,  evaluation);
 
         } else {
             JOptionPane.showMessageDialog(null, "absence not found ");
@@ -58,30 +61,25 @@ public class Admin extends User {
                         .append("\nDate: ").append(date)
                         .append("\nCurrent status: ").append(evaluation)
                         .append("\n\n");
-                
-//                System.out.println("Student ID: " + studentID);
-//                System.out.println("Date: " + date);
-//                System.out.println("Current status: " + evaluation);
             }
-            // Diplay message
+            // Display message
             JOptionPane.showMessageDialog(null, message.toString());
             
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "An error occurred while reading the file.");
-//            System.out.println("An error occurred while reading the file.");
             e.printStackTrace();
         }
     }
 
     //----------------------------------------------------------------------------------------------------
     private static void evaluation(String evaluation, String studentID, String date, Excuse excuse) {
-        try {
+        try(BufferedReader reader = new BufferedReader(new FileReader("studentInfo.txt"));
+            FileWriter writer = new FileWriter("studentInfo.txt");) {
+
             // Convert studentID to string
             String studentIDString = String.valueOf(studentID);
 
             // Read the contents of the file
-            File file = new File("studentInfo.txt");
-            BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuilder fileContent = new StringBuilder();
             String line;
             boolean found = false;
@@ -96,61 +94,36 @@ public class Admin extends User {
                 // Check if the current line corresponds to the excuse being evaluated
                 if (currentStudentID.equals(studentIDString) && currentDate.equals(date)) {
                     found = true;
-                    // Display the reason for absence
-//                    JOptionPane.showMessageDialog(null, "Reason for absence: " + excuse.getReason());
-//                    System.out.println("Reason for absence: " + excuse.getReason());
 
-                    // Prompt admin to accept or reject the excuse
-//                    System.out.print("Evaluate excuse (accept/reject): ");
-//                    String newStatus = scanner.next();
                     if (evaluation.equalsIgnoreCase("accept") || evaluation.equalsIgnoreCase("reject")) {
-                        // Update the status only if it changes
+                        // Update the status only if it's waiting for evaluation
                         if (!currentStatus.equals(evaluation)) {
                             // Update the status in the file content
                             line = "Student ID: " + studentIDString + ", Date: " + date + ", Status: " + evaluation;
                             JOptionPane.showMessageDialog(null, "Excuse status updated to " + evaluation + ".");
-//                            System.out.println("Excuse status updated to " + newStatus + ".");
                         } else {
-                            JOptionPane.showMessageDialog(null, "Excuse status remains unchanged.");
-//                            System.out.println("Excuse status remains unchanged.");
+                            JOptionPane.showMessageDialog(null, "Excuse already evaluated.");
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Invalid input. Excuse status remains unchanged.");
-//                        System.out.println("Invalid input. Excuse status remains unchanged.");
                     }
                 }
                 // Append the current line to the file content
                 fileContent.append(line).append("\n");
             }
-            reader.close();
 
             if (!found) {
                 JOptionPane.showMessageDialog(null, "Excuse not found in the file.");
-//                System.out.println("Excuse not found in the file.");
                 return;
             }
 
             // Write the modified contents back to the file
-            FileWriter writer = new FileWriter(file);
             writer.write(fileContent.toString());
-            writer.close();
+
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "An error occurred while updating the excuse status in the file.");
-//            System.out.println("An error occurred while updating the excuse status in the file.");
             e.printStackTrace();
         }
     }
-
-    //----------------------------------------------------------------------------------------------------
-//    public static String getStudentID(Scanner scanner) {
-//        System.out.println("Enter the id of the student who's excuse you want to evaluate: ");
-//        return scanner.next();
-//    }
-
-    //----------------------------------------------------------------------------------------------------
-//    public static String getDate(Scanner scanner) {
-//        System.out.println("Enter the date of the absences you want to evaluate in this format \"yyyy-mm-dd\": ");
-//        return scanner.next();
-//    }
 
 }

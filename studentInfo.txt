@@ -1,1 +1,3 @@
 Student ID: 1, Date: 1/1/24, Reason: high fever, Status: waiting for evaluation
+Student ID: 1, Date: 9/7/24, Reason: sick, Status: waiting for evaluation
+Student ID: 2, Date: 9/7/24, Reason: very sick, Status: waiting for evaluation

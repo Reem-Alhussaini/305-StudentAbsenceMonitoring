@@ -1,15 +1,12 @@
 package studentabsencemonitoringsystem_swe;
 
-import java.util.Scanner;
-
-//made a static counter to increment the id 
 public class Absence {
 
     private String Date;
     private Student student;
     private Excuse excuse;
     long startTime;//Changed access level to package-private
-    private AbsenceTimer timer;
+
  
 //removed id from constructor 
     public Absence(Student student, String Date, Excuse excuse) {
@@ -17,7 +14,6 @@ public class Absence {
         this.student = student;
         this.excuse = excuse;
         this.startTime = System.currentTimeMillis();
-        this.timer = new AbsenceTimer(this);
     }
     
     public void setDate(String Date) {

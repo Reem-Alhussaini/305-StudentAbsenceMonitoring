@@ -48,8 +48,18 @@ public class StudentDBManagement {
                     System.out.println("Timer is running.");
                 }
 
+
                 // When you want to stop the timer
 //                absenceTimer.stopTimer();
+
+//            // Optionally, check if the timer is running
+            if (absenceTimer.isTimerRunning()) {
+                System.out.println("Timer is running.");
+            }
+
+//            // When you want to stop the timer
+//            absenceTimer.stopTimer();
+
                 JOptionPane.showMessageDialog(null, "Absence date added successfully");
 //                System.out.println("Absence date added successfully");
             }

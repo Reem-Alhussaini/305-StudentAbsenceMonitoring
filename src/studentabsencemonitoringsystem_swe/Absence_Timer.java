@@ -4,8 +4,8 @@ public class Absence_Timer implements Runnable {
 
     private Thread thread;
     private Absence absence;
-    private static final long TIMEOUT = 48 * 60 * 60 * 1000; // 48 hours in milliseconds
-
+//    private static final long TIMEOUT = 48 * 60 * 60 * 1000; // 48 hours in milliseconds
+    private static final long TIMEOUT = 30 * 1000;
     public Absence_Timer(Absence absence) {
         this.absence = absence;
     }

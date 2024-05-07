@@ -9,7 +9,7 @@ public class StudentDBManagement {
     private static final String CONNECTION_URL = "jdbc:mysql://localhost:3306/student_absence_monitoring?user=root";
     private static final String USERNAME = "root";
     //change the password to your password
-    private static final String PASSWORD = "Ar@121963";
+    private static final String PASSWORD = "rsha.2002";
 
     //------------------------------------------------------------------------------------------------------------------
     private static Connection getConnection() throws SQLException {
@@ -42,14 +42,14 @@ public class StudentDBManagement {
                 Absence_Timer absenceTimer = new Absence_Timer(absence);
                 // Start the timer
                 absenceTimer.startTimer();
+                
+                // Optionally, check if the timer is running
+                if (absenceTimer.isTimerRunning()) {
+                    System.out.println("Timer is running.");
+                }
 
-//            // Optionally, check if the timer is running
-//            if (absenceTimer.isTimerRunning()) {
-//                System.out.println("Timer is running.");
-//            }
-
-//            // When you want to stop the timer
-//            absenceTimer.stopTimer();
+                // When you want to stop the timer
+//                absenceTimer.stopTimer();
                 JOptionPane.showMessageDialog(null, "Absence date added successfully");
 //                System.out.println("Absence date added successfully");
             }

@@ -80,6 +80,11 @@ public class GUI_MainFrame extends javax.swing.JFrame {
                 GUI_MainFrame frame = new GUI_MainFrame();
                 frame.setVisible(true);
                 frame.setLocationRelativeTo(null); // Center the window
+                
+                GUI_Server serverGUI = new GUI_Server();
+                Server server = new Server(serverGUI);
+                Thread serverThread = new Thread(server);
+                serverThread.start();
             }
         });
     }

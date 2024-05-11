@@ -196,7 +196,7 @@ public class GUI_AdminRegisterAbsence extends javax.swing.JFrame {
             Logger.getLogger(GUI_AdminRegisterAbsence.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        setVisible(false);
+//        setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {

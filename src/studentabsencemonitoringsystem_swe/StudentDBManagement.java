@@ -9,7 +9,7 @@ public class StudentDBManagement {
     private static final String CONNECTION_URL = "jdbc:mysql://localhost:3306/student_absence_monitoring?user=root";
     private static final String USERNAME = "root";
     //change the password to your password
-    private static final String PASSWORD = "rsha.2002";
+    private static final String PASSWORD = "Ar@121963";
 
     //------------------------------------------------------------------------------------------------------------------
     private static Connection getConnection() throws SQLException {
@@ -72,6 +72,7 @@ public class StudentDBManagement {
             statement.setString(3, absence.getDate());
 
             statement.executeUpdate();
+            absence.setExcuse(new Excuse(reason, "waiting for evaluation"));
             JOptionPane.showMessageDialog(null, "Excuse added successfully");
 
             return "waiting for evaluation";

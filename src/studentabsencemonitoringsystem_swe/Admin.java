@@ -36,6 +36,7 @@ public class Admin extends User {
 
             //store evaluation in database
             int id = Integer.parseInt(studentID);
+            excuse.setStatus(evaluation);
             StudentDBManagement.insertStatus( id,  date,  evaluation);
 
         } else {

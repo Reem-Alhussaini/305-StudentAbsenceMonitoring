@@ -4,7 +4,8 @@ public class Absence_Timer implements Runnable {
 
     private Thread thread;
     private Absence absence;
-    private static final long TIMEOUT = 48 * 60 * 60 * 1000; // 48 hours in milliseconds
+    //private static final long TIMEOUT = 48 * 60 * 60 * 1000; // 48 hours in milliseconds
+    private static final long TIMEOUT = 120000; // two minutes
 
     public Absence_Timer(Absence absence) {
         this.absence = absence;
@@ -36,9 +37,18 @@ public class Absence_Timer implements Runnable {
     }
 
     private void handleTimeout() {
-        if (absence.getExcuse() == null || !absence.getExcuse().getStatus().equalsIgnoreCase("waiting for evaluation")) {
+        String id1 = absence.getStudent().getId();
+        String date = absence.getDate();
+        Excuse excuse = StudentDBManagement.getExcuse(id1, date);
+
+        if (excuse == null || excuse.getReason() == null) {
             int id = Integer.parseInt(absence.getStudent().getId());
             StudentDBManagement.insertStatus(id, absence.getDate(), "unexcused");
+            System.out.println("timer expired, status changed to unexcused");
+        }
+        else{
+            stopTimer();
+            System.out.println("timer stooped");
         }
     }
 }
